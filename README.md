@@ -1,7 +1,3 @@
-# Billions-verified-agent-installer
-An ALL in one installer for Billions Verified agent 
-
-
 # Verified Agent Identity — Termux Setup Guide
 
 ## ⚡ One-Command Install
@@ -9,7 +5,7 @@ An ALL in one installer for Billions Verified agent
 Open Termux on your Android phone and paste this single command:
 
 ```bash
-curl -sL https://raw.githubusercontent.com/BillionsNetwork/verified-agent-identity/main/install-agent.sh | bash
+curl -sL https://raw.githubusercontent.com/FASHAKING/Billions-verified-agent-installer/main/install-agent.sh | bash
 ```
 
 That's it! The script will:
