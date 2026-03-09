@@ -72,23 +72,23 @@ print_banner
 echo -e "${BOLD}Before we begin, let's set up your agent details:${NC}"
 echo ""
 
-read -p "  Enter your Agent Name (e.g., MyAgent): " AGENT_NAME
+read -p "  Enter your Agent Name (e.g., MyAgent): " AGENT_NAME < /dev/tty
 while [ -z "$AGENT_NAME" ]; do
     print_warning "Agent name cannot be empty."
-    read -p "  Enter your Agent Name: " AGENT_NAME
+    read -p "  Enter your Agent Name: " AGENT_NAME < /dev/tty
 done
 
-read -p "  Enter your Agent Description (e.g., AI trading agent): " AGENT_DESC
+read -p "  Enter your Agent Description (e.g., AI trading agent): " AGENT_DESC < /dev/tty
 while [ -z "$AGENT_DESC" ]; do
     print_warning "Agent description cannot be empty."
-    read -p "  Enter your Agent Description: " AGENT_DESC
+    read -p "  Enter your Agent Description: " AGENT_DESC < /dev/tty
 done
 
 echo ""
 print_info "Agent Name: ${AGENT_NAME}"
 print_info "Agent Description: ${AGENT_DESC}"
 echo ""
-read -p "  Proceed with installation? (y/n): " CONFIRM
+read -p "  Proceed with installation? (y/n): " CONFIRM < /dev/tty
 if [ "$CONFIRM" != "y" ] && [ "$CONFIRM" != "Y" ]; then
     echo ""
     print_warning "Installation cancelled by user."
