@@ -2,10 +2,10 @@
 
 # ============================================================
 #  Verified Agent Identity — All-in-One Installer for Termux
-#  GitHub: https://github.com/BillionsNetwork/verified-agent-identity
+#  GitHub: https://github.com/FASHAKING/Billions-verified-agent-installer
 #
 #  Usage:
-#    curl -sL https://raw.githubusercontent.com/BillionsNetwork/verified-agent-identity/main/install-agent.sh | bash
+#    curl -sL https://raw.githubusercontent.com/FASHAKING/Billions-verified-agent-installer/main/install-agent.sh | bash
 #
 #  What this script does:
 #    1. Updates & upgrades Termux packages
