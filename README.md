@@ -26,6 +26,18 @@ irm https://raw.githubusercontent.com/FASHAKING/Billions-verified-agent-installe
 
 ---
 
+## macOS (Terminal)
+
+Open **Terminal** on your Mac and paste:
+
+```bash
+curl -sL https://raw.githubusercontent.com/FASHAKING/Billions-verified-agent-installer/main/install-agent-macos.sh | bash
+```
+
+> Works on both Apple Silicon (M1/M2/M3/M4) and Intel Macs. The script will auto-install Homebrew, Node.js, and Git if they are missing.
+
+---
+
 ## GitHub Codespaces / Workspaces / Gitpod / WSL
 
 Open a terminal in your **Codespace**, **Workspace**, **Gitpod**, or **WSL** and paste:
@@ -140,6 +152,57 @@ node scripts/createNewEthereumIdentity.js
 ```powershell
 node scripts/manualLinkHumanToAgent.js --challenge '{"name":"YourAgentName","description":"AI agent"}'
 ```
+
+</details>
+
+---
+
+## Manual Step-by-Step (macOS)
+
+<details>
+<summary>Click to expand manual macOS instructions</summary>
+
+### Step 1 — Install Homebrew (if not installed)
+```bash
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+
+### Step 2 — Install Node.js and Git
+```bash
+brew install node git
+```
+Verify with `node -v` — you should see something like `v24.x.x`.
+
+### Step 3 — Clone the Repository
+```bash
+git clone https://github.com/BillionsNetwork/verified-agent-identity
+cd verified-agent-identity
+```
+
+### Step 4 — Install Dependencies
+```bash
+npx clawhub@latest install verified-agent-identity
+```
+> If clawhub fails, run `npm install` instead.
+
+### Step 5 — Install Common Missing Modules
+```bash
+npm install shell-quote @iden3/js-iden3-auth ethers@6 uuid
+```
+
+### Step 6 — Create Agent Ethereum Identity
+```bash
+node scripts/createNewEthereumIdentity.js
+```
+
+### Step 7 — Link Human Identity with Agent
+```bash
+node scripts/manualLinkHumanToAgent.js --challenge '{"name":"YourAgentName","description":"AI agent"}'
+```
+Replace `YourAgentName` with your desired agent name.
+
+After running this, you'll get a **verification URL** in the terminal.
+Copy it → open in browser → connect wallet → verify. Done!
 
 </details>
 
