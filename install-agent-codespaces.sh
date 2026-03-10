@@ -212,8 +212,11 @@ if npx --yes clawhub@latest install verified-agent-identity 2>&1; then
     print_success "clawhub dependencies installed."
 else
     print_warning "clawhub failed — falling back to npm install..."
-    npm install 2>&1
-    print_success "npm dependencies installed."
+    # Ensure package.json exists so npm install commands work
+    if [ ! -f "package.json" ]; then
+        npm init -y 2>&1
+        print_info "Created package.json for dependency management."
+    fi
 fi
 
 # --- Pre-install commonly missing modules ---
