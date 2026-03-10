@@ -83,12 +83,25 @@ if (-not $NodeCmd) {
     Write-Warn "Node.js not found. Attempting to install via winget..."
     $HasWinget = Get-Command winget -ErrorAction SilentlyContinue
     if ($HasWinget) {
-        winget install OpenJS.NodeJS.LTS --accept-source-agreements --accept-package-agreements
+        # Try user-scope first (no admin/UAC prompt required)
+        Write-Info "Trying user-scope install (no admin required)..."
+        winget install OpenJS.NodeJS.LTS --accept-source-agreements --accept-package-agreements --scope user 2>$null
+        $WingetExit = $LASTEXITCODE
+        if ($WingetExit -ne 0) {
+            Write-Warn "User-scope install not available. Trying machine-scope (may require admin)..."
+            winget install OpenJS.NodeJS.LTS --accept-source-agreements --accept-package-agreements
+            $WingetExit = $LASTEXITCODE
+        }
+        if ($WingetExit -ne 0) {
+            Write-Err "Node.js installation failed (exit code: $WingetExit)."
+            Write-Err "Please install Node.js manually from https://nodejs.org and re-run this script."
+            exit 1
+        }
         # Refresh PATH so node is available in this session
         $env:PATH = [System.Environment]::GetEnvironmentVariable("PATH", "Machine") + ";" + [System.Environment]::GetEnvironmentVariable("PATH", "User")
         $NodeCmd = Get-Command node -ErrorAction SilentlyContinue
         if (-not $NodeCmd) {
-            Write-Err "Node.js installation succeeded but 'node' is not in PATH."
+            Write-Warn "Node.js was installed but 'node' is not yet in PATH."
             Write-Err "Please close and reopen your terminal, then re-run this script."
             exit 1
         }
@@ -108,11 +121,24 @@ if (-not $GitCmd) {
     Write-Warn "Git not found. Attempting to install via winget..."
     $HasWinget = Get-Command winget -ErrorAction SilentlyContinue
     if ($HasWinget) {
-        winget install Git.Git --accept-source-agreements --accept-package-agreements
+        # Try user-scope first (no admin/UAC prompt required)
+        Write-Info "Trying user-scope install (no admin required)..."
+        winget install Git.Git --accept-source-agreements --accept-package-agreements --scope user 2>$null
+        $WingetExit = $LASTEXITCODE
+        if ($WingetExit -ne 0) {
+            Write-Warn "User-scope install not available. Trying machine-scope (may require admin)..."
+            winget install Git.Git --accept-source-agreements --accept-package-agreements
+            $WingetExit = $LASTEXITCODE
+        }
+        if ($WingetExit -ne 0) {
+            Write-Err "Git installation failed (exit code: $WingetExit)."
+            Write-Err "Please install Git manually from https://git-scm.com and re-run this script."
+            exit 1
+        }
         $env:PATH = [System.Environment]::GetEnvironmentVariable("PATH", "Machine") + ";" + [System.Environment]::GetEnvironmentVariable("PATH", "User")
         $GitCmd = Get-Command git -ErrorAction SilentlyContinue
         if (-not $GitCmd) {
-            Write-Err "Git installation succeeded but 'git' is not in PATH."
+            Write-Warn "Git was installed but 'git' is not yet in PATH."
             Write-Err "Please close and reopen your terminal, then re-run this script."
             exit 1
         }
